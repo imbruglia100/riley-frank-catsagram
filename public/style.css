@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -41,4 +46,30 @@ button {
 #downVote {
     margin: 5px;
     background-color: rgb(255, 163, 163);
+}
+
+#commentField {
+    border: 1px solid black;
+    box-shadow: 3px 3px grey;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    width: 80%;
+}
+
+li {    
+    list-style: none;
+    padding: 4px 4px;
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+li div{
+   cursor: pointer;
+}
+
+
+#commentField li:nth-child(odd) {
+    background-color: rgb(163, 158, 202);
 }

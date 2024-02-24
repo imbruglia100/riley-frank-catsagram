@@ -91,12 +91,29 @@ const addComment = (e) => {
     const commentField = document.getElementById("commentField")
     const commentCon = document.createElement("li")
     const commentSpan = document.createElement("span")
+    const deleteX = document.createElement("div")
+    deleteX.classList.add('x')
 
+    deleteX.innerText = 'x'
     commentSpan.innerText = commentText.value
     commentCon.appendChild(commentSpan)
+    commentCon.appendChild(deleteX)
     commentField.appendChild(commentCon)
+    
+    // document.getElementsByTagName("li").addEventListener("hover", (e) => {
+    //     console.log(e)
+    // })
 
     commentText.value = ""
+
+}
+
+const remove =(e) => {
+    e.preventDefault()
+    console.log(e)
+    if(e.target.className === 'x' ){
+        
+    }
 }
 
 // getCatPics()
@@ -105,3 +122,4 @@ document.getElementById("button").addEventListener("click", changeCat)
 document.getElementById("upVote").addEventListener("click", vote)
 document.getElementById("downVote").addEventListener("click", vote)
 document.getElementById("commentBtn").addEventListener("click", addComment)
+document.getElementById("commentField").addEventListener("click", remove)
