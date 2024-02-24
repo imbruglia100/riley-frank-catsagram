@@ -10,18 +10,33 @@
 </head>
 
 <body>
-  <h1>Kitten Pic</h1>
+  <h1>Catstagram</h1>
   <div id="imgCon"></div>
   <div id="action-container">
     <button id="button">New Cat</button>
     <div id="voteCounter">
-      <div id="upVote"></div>
-      <span id="count">0</span>
-      <div id="downVote"></div>
+      <button id="upVote">Upvote</button>
+      <div id="count" data-count="0"><span id="numberCount">0</span></div>
+      <button id="downVote">Downvote</button>
     </div>
 
   </div>
+  <form id="commentForm">
+    <input id="commentText" type="text" placeholder="I love cats!" />
+    <button id="commentBtn">Submit</button>
+  </form>
 
+  <ul id="commentField">
+    <li>
+      <span>I love cats!!</span>
+    </li>
+    <li>
+      <span>I great cats!!</span>
+    </li>
+    <li>
+      <span>cats are great!!</span>
+    </li>
+  </ul>
 </body>
 
 </html>

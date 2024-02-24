@@ -17,18 +17,28 @@ button {
     margin: 15px;
 }
 
-#imgCon {
+#action-container{
     display: flex;
     justify-content: center;
 }
 
+#voteCounter {
+    display: flex;
+    align-items: center;
+}
+
+#imgCon {
+    display: flex;
+    justify-content: center;
+}
+#upVote, #downVote {
+    font-weight: 700;
+}
 #upVote {
-    width: 25px;
-    height: 25px;
-    background-color: green;
+    margin: 5px;
+    background-color: rgb(175, 255, 175);
 }
 #downVote {
-    width: 25px;
-    height: 25px;
-    background-color: red;
+    margin: 5px;
+    background-color: rgb(255, 163, 163);
 }
