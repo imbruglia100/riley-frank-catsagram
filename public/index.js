@@ -99,7 +99,7 @@ const addComment = (e) => {
     commentCon.appendChild(commentSpan)
     commentCon.appendChild(deleteX)
     commentField.appendChild(commentCon)
-    
+
     // document.getElementsByTagName("li").addEventListener("hover", (e) => {
     //     console.log(e)
     // })
@@ -110,13 +110,13 @@ const addComment = (e) => {
 
 const remove =(e) => {
     e.preventDefault()
-    console.log(e)
+    let parent = e.target.parentNode
     if(e.target.className === 'x' ){
-        
+        parent.remove()
     }
 }
 
-// getCatPics()
+getCatPics()
 
 document.getElementById("button").addEventListener("click", changeCat)
 document.getElementById("upVote").addEventListener("click", vote)
