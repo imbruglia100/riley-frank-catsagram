@@ -1,0 +1,34 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    width: fit-content;
+}
+
+img{
+    max-width: 75%;
+}
+
+button {
+    padding: 5px 8px;
+    margin: 15px;
+}
+
+#imgCon {
+    display: flex;
+    justify-content: center;
+}
+
+#upVote {
+    width: 25px;
+    height: 25px;
+    background-color: green;
+}
+#downVote {
+    width: 25px;
+    height: 25px;
+    background-color: red;
+}
