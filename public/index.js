@@ -1,5 +1,22 @@
 let voted = false
 
+const storeData = (key, data) => {
+    localStorage.setItem(key, `${data}`)
+}
+
+const restoreData = () => {
+    const img = document.getElementById("catImg")
+    img.src = localStorage.getItem("img")
+
+    const voteCounter = document.getElementById("count")
+    const numberCount = document.getElementById("numberCount")
+
+    voteCounter.dataset.count = localStorage.getItem("vote") ? localStorage.getItem("vote") : 0;
+    numberCount.innerText = voteCounter.dataset.count
+
+
+}
+
 const resetInfo = () => {
     const voteCounter = document.getElementById("count")
     const numberCount = document.getElementById("numberCount")
@@ -35,8 +52,9 @@ const getCatPics = async () => {
     })
     const catsObj = await catsJSON.json()
     const imgCon = document.createElement("img")
+    imgCon.id = "catImg"
     imgCon.src = catsObj[0].url
-
+    storeData("img", catsObj[0].url)
     document.getElementById("imgCon").appendChild(imgCon)
 
 }
@@ -76,10 +94,11 @@ const vote = ({ target }) => {
     const newCount = document.createElement("span")
     newCount.id = "numberCount"
     newCount.innerText = voteCounter.dataset.count
+    storeData("vote", voteCounter.dataset.count)
     voteCounter.appendChild(newCount)
 }
-
-const changeCat = (e) => {
+//may have bugs here
+const changeCat = (e = { preventDefault: () => 0 }) => {
     e.preventDefault()
     document.querySelector("img").remove()
     getCatPics()
@@ -100,6 +119,12 @@ const addComment = (e) => {
     commentCon.appendChild(deleteX)
     commentField.appendChild(commentCon)
 
+    if(!localStorage.getItem("comments")){
+        storeData("comments", commentText.value)
+    } else {
+        storeData("comments", localStorage.getItem("comments") + "%2" + commentText.value)
+    }
+
     // document.getElementsByTagName("li").addEventListener("hover", (e) => {
     //     console.log(e)
     // })
@@ -116,7 +141,12 @@ const remove =(e) => {
     }
 }
 
-getCatPics()
+if(localStorage.getItem("img")){
+    restoreData()
+    }else{
+    getCatPics()
+    }
+
 
 document.getElementById("button").addEventListener("click", changeCat)
 document.getElementById("upVote").addEventListener("click", vote)
