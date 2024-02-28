@@ -2,6 +2,9 @@
     box-sizing: border-box;
     
 }
+html body {
+    background-color: lightgray;
+}
 
 body {
     display: flex;
@@ -11,6 +14,7 @@ body {
 
 h1{
     width: fit-content;
+    
 }
 
 img{
