@@ -3,6 +3,25 @@ let voted = false
 const storeData = (key, data) => {
     localStorage.setItem(key, `${data}`)
 }
+const restoreComments = (parent, msg) => {
+    const commentCon = document.createElement("li")
+    const commentSpan = document.createElement("span")
+    const deleteX = document.createElement("div")
+    deleteX.classList.add('x')
+
+    deleteX.innerText = 'x'
+    commentSpan.innerText = msg
+    commentCon.appendChild(commentSpan)
+    commentCon.appendChild(deleteX)
+    parent.appendChild(commentCon)
+
+    if(!localStorage.getItem("comments")){
+        storeData("comments", msg)
+    } else {
+        storeData("comments", localStorage.getItem("comments") + "%2" + msg)
+    }
+
+}
 
 const restoreData = () => {
     const img = document.getElementById("catImg")
@@ -14,9 +33,11 @@ const restoreData = () => {
     voteCounter.dataset.count = localStorage.getItem("vote") ? localStorage.getItem("vote") : 0;
     numberCount.innerText = voteCounter.dataset.count
 
-
+    const comments = localStorage.getItem("comments").split('%2')
+    comments.forEach(el =>{
+        restoreComments(document.getElementById("commentField"), el)
+    })
 }
-
 const resetInfo = () => {
     const voteCounter = document.getElementById("count")
     const numberCount = document.getElementById("numberCount")
@@ -40,6 +61,7 @@ const resetInfo = () => {
 
 
     document.body.appendChild(newCommentField)
+    localStorage.clear()
 }
 
 const getCatPics = async () => {
@@ -108,23 +130,7 @@ const addComment = (e) => {
     e.preventDefault()
     const commentText = document.getElementById("commentText")
     const commentField = document.getElementById("commentField")
-    const commentCon = document.createElement("li")
-    const commentSpan = document.createElement("span")
-    const deleteX = document.createElement("div")
-    deleteX.classList.add('x')
-
-    deleteX.innerText = 'x'
-    commentSpan.innerText = commentText.value
-    commentCon.appendChild(commentSpan)
-    commentCon.appendChild(deleteX)
-    commentField.appendChild(commentCon)
-
-    if(!localStorage.getItem("comments")){
-        storeData("comments", commentText.value)
-    } else {
-        storeData("comments", localStorage.getItem("comments") + "%2" + commentText.value)
-    }
-
+    restoreComments(commentField, commentText.value)
     // document.getElementsByTagName("li").addEventListener("hover", (e) => {
     //     console.log(e)
     // })
