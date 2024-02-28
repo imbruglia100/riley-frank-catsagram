@@ -62,17 +62,25 @@ const resetInfo = () => {
 
 const getCatPics = async () => {
     resetInfo()
-    const catsJSON = await fetch("https://api.thecatapi.com/v1/images/search", {
-        headers: {
-                "x-api-key": "live_1dfrhQCPdRiKF5Uwezi43x2v4LJCyJ2Kp8agVnIUTzs5Tp8BcoG7urQpXDgCj2F3",
-                "mode": "no-cors"
-                }
+    // let isPending = true;
+
+    let catsPromise = new Promise( (res, rej) => {
+        res(fetch("https://api.thecatapi.com/v1/images/search", {
+            headers: {
+                    "x-api-key": "live_1dfrhQCPdRiKF5Uwezi43x2v4LJCyJ2Kp8agVnIUTzs5Tp8BcoG7urQpXDgCj2F3",
+                    "mode": "no-cors"
+                    }
+        }))
     })
+    // const loadingIcon = document.getElementById("svgCon")
+    const catsJSON = await catsPromise
     const catsObj = await catsJSON.json()
     const imgCon = document.createElement("img")
     imgCon.id = "catImg"
     imgCon.src = catsObj[0].url
     storeData("img", catsObj[0].url)
+
+    // isPending = false
     document.getElementById("imgCon").appendChild(imgCon)
 
 }

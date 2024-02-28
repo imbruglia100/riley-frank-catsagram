@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    
+
 }
 html body {
     background-color: lightgray;
@@ -14,7 +14,23 @@ body {
 
 h1{
     width: fit-content;
-    
+
+}
+
+svg {
+    scale: 1;
+    width: fit-content;
+    height: fit-content;
+    animation: wave 2000ms infinite ;
+}
+
+#svgCon {
+    object-fit: cover;
+    width: 200px;
+}
+
+.hide {
+    display: none;
 }
 
 img{
@@ -61,12 +77,12 @@ button {
     width: 80%;
 }
 
-li {    
+li {
     list-style: none;
     padding: 4px 4px;
     display: flex;
     justify-content: space-between;
-   
+
 }
 
 li div{
@@ -76,4 +92,22 @@ li div{
 
 #commentField li:nth-child(odd) {
     background-color: rgb(163, 158, 202);
+}
+
+
+@keyframes wave {
+    25%{
+        rotate: 45deg;
+    }
+    50% {
+        rotate: -45deg
+    }
+
+    75%{
+        rotate: 45deg;
+    }
+
+    100%{
+        rotate: 0deg
+    }
 }
