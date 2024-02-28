@@ -3,7 +3,7 @@ let voted = false
 const storeData = (key, data) => {
     localStorage.setItem(key, `${data}`)
 }
-const restoreComments = (parent, msg) => {
+const createCommentEl = (parent, msg) => {
     const commentCon = document.createElement("li")
     const commentSpan = document.createElement("span")
     const deleteX = document.createElement("div")
@@ -14,12 +14,6 @@ const restoreComments = (parent, msg) => {
     commentCon.appendChild(commentSpan)
     commentCon.appendChild(deleteX)
     parent.appendChild(commentCon)
-
-    if(!localStorage.getItem("comments")){
-        storeData("comments", msg)
-    } else {
-        storeData("comments", localStorage.getItem("comments") + "%2" + msg)
-    }
 
 }
 
@@ -33,10 +27,12 @@ const restoreData = () => {
     voteCounter.dataset.count = localStorage.getItem("vote") ? localStorage.getItem("vote") : 0;
     numberCount.innerText = voteCounter.dataset.count
 
-    const comments = localStorage.getItem("comments").split('%2')
-    comments.forEach(el =>{
-        restoreComments(document.getElementById("commentField"), el)
+    if(localStorage.getItem('comments')){
+        const comments = localStorage.getItem("comments").split('%2')
+        comments.forEach(el =>{
+        createCommentEl(document.getElementById("commentField"), el)
     })
+    }
 }
 const resetInfo = () => {
     const voteCounter = document.getElementById("count")
@@ -120,9 +116,9 @@ const vote = ({ target }) => {
     voteCounter.appendChild(newCount)
 }
 //may have bugs here
-const changeCat = (e = { preventDefault: () => 0 }) => {
+const changeCat = (e) => {
     e.preventDefault()
-    document.querySelector("img").remove()
+    document.getElementById("catImg").remove()
     getCatPics()
 }
 
@@ -130,7 +126,14 @@ const addComment = (e) => {
     e.preventDefault()
     const commentText = document.getElementById("commentText")
     const commentField = document.getElementById("commentField")
-    restoreComments(commentField, commentText.value)
+
+    if(!localStorage.getItem("comments")){
+        storeData("comments", commentText.value)
+    } else {
+        storeData("comments", localStorage.getItem("comments") + "%2" + commentText.value)
+    }
+
+    createCommentEl(commentField, commentText.value)
     // document.getElementsByTagName("li").addEventListener("hover", (e) => {
     //     console.log(e)
     // })
@@ -143,15 +146,24 @@ const remove =(e) => {
     e.preventDefault()
     let parent = e.target.parentNode
     if(e.target.className === 'x' ){
+        const innerText = parent.children[0].innerText
+        const commentsArr = localStorage.getItem("comments").split('%2')
+        const filterComments = commentsArr.filter( el => {
+            return el !== innerText
+        })
+        storeData("comments", filterComments.join('%2'))
         parent.remove()
     }
 }
 
-if(localStorage.getItem("img")){
-    restoreData()
-    }else{
-    getCatPics()
-    }
+window.onload = () => {
+    if(localStorage.getItem("img")){
+        restoreData()
+        }else{
+        getCatPics()
+        }
+}
+
 
 
 document.getElementById("button").addEventListener("click", changeCat)
